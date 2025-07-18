@@ -15,8 +15,8 @@ COPY ecommerce /var/www/html/ecommerce
 
 WORKDIR /var/www/html/ecommerce
 
-RUN chown -R www-data:www-data /var/www/html/ecommerce/public && \
-    chmod -R 755 /var/www/html/ecommerce/public
+RUN chown -R www-data:www-data /var/www/html/ecommerce && \
+    chmod -R 755 /var/www/html/ecommerce
 
 RUN a2enmod rewrite
 
