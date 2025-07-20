@@ -7,7 +7,7 @@ RUN apt-get update && \
         libzip-dev \
         default-mysql-client \
         mariadb-client && \
-    docker-php-ext-install pdo pdo_mysql zip gd && \
+    docker-php-ext-install mysqli pdo pdo_mysql zip gd && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
