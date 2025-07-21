@@ -5,7 +5,10 @@
 <section class="py-5">
     <div class="container mt-5" style="max-width: 500px;">
         <h3 class="mb-4 text-center">Entrar na sua conta</h3>
-        <form method="post" action="<?= base_url('usuario/autenticar') ?>">
+
+        <?php $this->load->view('resultado'); ?>
+
+        <form method="post" action="<?= base_url('usuario/autenticar') ?>" autocomplete="off">
             <div class="mb-3">
             <label>Email</label>
             <input type="email" name="email" class="form-control" required>

@@ -5,7 +5,9 @@
     <div class="container px-4 px-lg-5 mt-5">
         <h2>Cadastro de Usuário</h2>
 
-        <form method="post" action="<?= base_url('usuario/salvar') ?>" id="formCadastro">
+        <?php $this->load->view('resultado'); ?>
+
+        <form method="post" action="<?= base_url('usuario/salvar') ?>" id="formCadastro" autocomplete="off">
             <div class="form-group">
                 <label>Nome</label>
                 <input type="text" name="nome" class="form-control" required>

@@ -1,6 +1,6 @@
-<?php if ($this->session->flashdata('success')): ?>
+<?php if ($this->session->flashdata('sucesso')): ?>
   <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-    <?= $this->session->flashdata('success'); ?>
+    <?= $this->session->flashdata('sucesso'); ?>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
   </div>
 <?php endif; ?>
@@ -12,9 +12,9 @@
   </div>
 <?php endif; ?>
 
-<?php if ($this->session->flashdata('danger')): ?>
+<?php if ($this->session->flashdata('erro')): ?>
   <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
-    <?= $this->session->flashdata('danger'); ?>
+    <?= $this->session->flashdata('erro'); ?>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
   </div>
 <?php endif; ?>

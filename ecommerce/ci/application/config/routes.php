@@ -53,6 +53,7 @@ $route['default_controller'] = 'welcome';
 $route['home'] = 'home/index';
 $route['carrinho'] = 'home/carrinho';
 $route['login'] = 'usuario/login';
+$route['logout'] = 'usuario/logout';
 $route['usuario/cadastro'] = 'usuario/cadastro';
 $route['usuario/salvar']['POST'] = 'usuario/salvar';
 $route['usuario/autenticar']['POST'] = 'usuario/autenticar';
