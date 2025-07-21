@@ -54,8 +54,13 @@ $route['home'] = 'home/index';
 $route['carrinho'] = 'home/carrinho';
 $route['login'] = 'usuario/login';
 $route['logout'] = 'usuario/logout';
+// rotas de usuario
 $route['usuario/cadastro'] = 'usuario/cadastro';
 $route['usuario/salvar']['POST'] = 'usuario/salvar';
 $route['usuario/autenticar']['POST'] = 'usuario/autenticar';
+
+//rotas de administração
+$route['admin/dashboard'] = 'admin/index';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
