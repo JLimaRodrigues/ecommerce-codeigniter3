@@ -24,6 +24,7 @@
                     <i class="bi bi-person-circle"></i> Olá, João
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownConta">
+                    <li><a class="dropdown-item" href="<?= base_url('home') ?>">Ecommerce</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('perfil') ?>">Meu Perfil</a></li>
                     <li><a class="dropdown-item" href="<?= base_url('pedidos') ?>">Meus Pedidos</a></li>
                     <li><hr class="dropdown-divider"></li>

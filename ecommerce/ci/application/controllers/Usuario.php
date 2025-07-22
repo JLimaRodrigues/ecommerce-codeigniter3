@@ -29,26 +29,30 @@ class Usuario extends CI_Controller {
         } else {
           $this->load->model('UsuarioModel');
 
-                  $dados = [
-                      'nome' => $this->input->post('nome'),
-                      'email' => $this->input->post('email'),
-                      'senha_hash' => password_hash($this->input->post('senha'), PASSWORD_DEFAULT),
-                      'telefone' => $this->input->post('telefone'),
-                      'cpf' => $this->input->post('cpf'),
-                      'genero' => $this->input->post('genero'),
-                      'data_nascimento' => $this->input->post('data_nascimento'),
-                      'preferencias_json' => json_encode([]),
-                      'data_ultimo_login' => NULL,
-                      'is_ativo' => 1
-                  ];
+                $dados = [
+                    'nome' => $this->input->post('nome'),
+                    'email' => $this->input->post('email'),
+                    'senha_hash' => password_hash($this->input->post('senha'), PASSWORD_DEFAULT),
+                    'telefone' => $this->input->post('telefone'),
+                    'cpf' => $this->input->post('cpf'),
+                    'genero' => $this->input->post('genero'),
+                    'data_nascimento' => $this->input->post('data_nascimento'),
+                    'preferencias_json' => json_encode([]),
+                    'data_ultimo_login' => NULL,
+                    'is_ativo' => 1
+                ];
 
-                  if ($this->UsuarioModel->inserir($dados)) {
-                      $this->session->set_flashdata('sucesso', "Cadastro realizado com sucesso. Faça o login e aproveite o site.");
-                      redirect('usuario/login');
-                  } else {
-                      $this->session->set_flashdata('erro', 'Erro ao salvar o usuário no banco de dados. Tente novamente.');
-                      redirect('usuario/cadastro');
-                  }
+                if (!isset($dados['id_perfil'])) {
+                    $dados['id_perfil'] = 1;
+                }
+
+                if ($this->UsuarioModel->inserir($dados)) {
+                    $this->session->set_flashdata('sucesso', "Cadastro realizado com sucesso. Faça o login e aproveite o site.");
+                    redirect('usuario/login');
+                } else {
+                    $this->session->set_flashdata('erro', 'Erro ao salvar o usuário no banco de dados. Tente novamente.');
+                    redirect('usuario/cadastro');
+                }
         }
     }
 
@@ -65,7 +69,7 @@ class Usuario extends CI_Controller {
             return TRUE;
         }
 
-        $this->form_validation->set_message('validar_data', 'O campo {field} não contém uma data válida no formato DD/MM/YYYY.'); // Mantenha a mensagem em português se desejar
+        $this->form_validation->set_message('validar_data', 'O campo {field} não contém uma data válida no formato DD/MM/YYYY.');
         return FALSE;
     }
 
@@ -90,9 +94,11 @@ class Usuario extends CI_Controller {
 
         if ($usuario) {
             $this->session->set_userdata('usuario_logado', [
-                'id' => $usuario->id_usuario,
-                'nome' => $usuario->nome,
-                'email' => $usuario->email
+                'id'     => $usuario->id_usuario,
+                'nome'   => $usuario->nome,
+                'email'  => $usuario->email,
+                'perfil' => encriptar($usuario->id_perfil),
+                'logado' => TRUE
             ]);
 
             $ip_address = $this->input->ip_address();
@@ -129,11 +135,9 @@ class Usuario extends CI_Controller {
       redirect('usuario/login');
   }
 
-  public function perfil() {
-    // Aqui você pode mostrar dados do usuário logado
-  }
+  public function perfil() 
+  {}
 
-  public function cupons() {
-    // Listagem de cupons disponíveis
-  }
+  public function cupons() 
+  {}
 }
