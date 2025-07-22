@@ -1,7 +1,18 @@
-<?php $this->load->view('templates/admin/header'); ?>
-<?php $this->load->view('templates/admin/sidebar'); ?>
-<?php $this->load->view('templates/admin/navbar'); ?>
-<?php $this->load->view('templates/admin/sidebar-mobile'); ?>
+<?php
+$usuario = $this->session->userdata('usuario_logado');
+$usuarioDecriptado = isset($usuario['perfil']) ? decriptar($usuario['perfil']) : 0;
+
+$dados_comuns = [
+  'usuario'           => $usuario,
+  'usuarioDecriptado' => $usuarioDecriptado,
+  'telaAtiva'         => 'dashboard'
+];
+
+$this->load->view('templates/admin/header', $dados_comuns);
+$this->load->view('templates/admin/sidebar', $dados_comuns); 
+$this->load->view('templates/admin/navbar', $dados_comuns); 
+$this->load->view('templates/admin/sidebar-mobile', $dados_comuns); 
+?>
 
 <main class="mt-5 pt-3">
     <div class="container-fluid">
