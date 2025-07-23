@@ -13,6 +13,7 @@ function checar_permissao() {
         'usuario/cadastro',
         'usuario/salvar',
         'usuario/autenticar',
+        'produto/listar'
     ];
 
     if (in_array($rota_atual, $rotas_livres)) {

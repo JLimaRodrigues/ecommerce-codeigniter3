@@ -32,7 +32,12 @@ $this->load->view('templates/admin/sidebar-mobile', $dados_comuns);
               <table id="tabela-pedidos" class="display">
               <thead>
                 <tr>
-                  <th>relatorio</th>
+                  <th>pedido nr</th>
+                  <th>feito por</th>
+                  <th>valor</th>
+                  <th>cupom de desconto</th>
+                  <th>cep</th>
+                  <th>endereco</th>
                   <th>data</th>
                 </tr>
               </thead>

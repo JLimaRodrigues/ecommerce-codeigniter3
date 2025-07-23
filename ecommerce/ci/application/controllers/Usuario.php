@@ -5,6 +5,12 @@ class Usuario extends CI_Controller {
 
     public function login() 
     {
+        $redirect_url = $this->input->get('redirect');
+
+        if (!empty($redirect_url)) {
+            $this->session->set_userdata('redirect_after_login', $redirect_url);
+        }
+
         $this->load->view('login');
     }
 
@@ -105,7 +111,15 @@ class Usuario extends CI_Controller {
             $user_agent = $this->input->user_agent();
             $this->UsuarioModel->registrarLogin($usuario->id_usuario, $ip_address, $user_agent);
 
-            redirect('home');
+            $redirect_to = $this->session->userdata('redirect_after_login');
+
+            $this->session->unset_userdata('redirect_after_login');
+            
+            if ($redirect_to) {
+                redirect($redirect_to);
+            } else {
+                redirect('home');
+            }
         } else {
             $this->session->set_flashdata('erro', 'Email ou senha inválidos.');
             redirect('usuario/login');

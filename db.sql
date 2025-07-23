@@ -139,7 +139,18 @@ INSERT INTO produtos (nome_produto, preco) VALUES
 ('Calça Jeans Slim', 129.99),
 ('Tênis Esportivo', 199.50),
 ('Fone de Ouvido Bluetooth', 89.00),
-('Mochila Escolar', 75.00);
+('Mochila Escolar', 75.00),
+('Casaco Moletom', 120.00),
+('Bermuda Cargo', 100.00),
+('Calça Jeans Skinny', 129.99),
+('Tênis de Marca', 350.00),
+('Barbeador Elétrico', 20.00),
+('Óculos Escuro', 50.00),
+('Cueca Box', 29.99),
+('Sapato social', 20.00),
+('Boné', 20.00),
+('Gorro', 20.00),
+('Meia', 15.00);
 
 INSERT INTO estoque (id_produto, variacao, quantidade) VALUES
 (1, 'P - Preto', 50),

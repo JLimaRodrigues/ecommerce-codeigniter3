@@ -19,7 +19,7 @@ $this->load->view('templates/admin/sidebar-mobile', $dados_comuns);
     <div class="content-wrapper">
         <div class="content-header">
           <h3 class="content-header-title">
-            <i class="bi bi-bar-chart-line"></i> Usuários
+            <i class="bi bi-people"></i> Usuários
           </h3>
         </div>
         <div class="content-body">

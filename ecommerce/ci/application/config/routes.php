@@ -12,6 +12,9 @@ $route['usuario/cadastro']           = 'usuario/cadastro';
 $route['usuario/salvar']['POST']     = 'usuario/salvar';
 $route['usuario/autenticar']['POST'] = 'usuario/autenticar';
 
+//rotas de produto
+$route['produto/listar'] = 'produto/listar';
+
 //rotas de administração
 $route['admin/dashboard']  = 'admin/index';
 $route['admin/produtos']   = 'admin/produtos';
