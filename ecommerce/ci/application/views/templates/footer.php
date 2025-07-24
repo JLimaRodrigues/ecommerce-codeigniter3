@@ -5,8 +5,8 @@
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body d-flex flex-column">
-        <ul id="cart-items" class="list-group list-group-flush mb-3"></ul>
-        <div id="cart-subtotal" class="text-end fw-bold mb-3">Subtotal: R$ 0,00</div>
+        <ul id="carrinho-itens" class="list-group list-group-flush mb-3"></ul>
+        <div id="subtotal-display" class="text-end fw-bold mb-3">Subtotal: R$ 0,00</div>
         <button id="checkout-btn" class="btn btn-dark mt-auto">Pagar agora</button>
     </div>
 </div>
@@ -29,5 +29,7 @@
         }
     }
 </script>
+<script src="<?= base_url('assets/carrinho.js') ?>"></script>
+
 </body>
 </html>

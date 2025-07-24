@@ -15,12 +15,12 @@ $usuarioDecriptado = isset($usuario['perfil']) ? decriptar($usuario['perfil']) :
             </ul>
             <form class="d-flex align-items-center gap-2">
                 <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar">
-                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="badge bg-dark text-white ms-1 rounded-0" id="cart-count">0</span>
+                <i class="bi bi-cart-fill"></i> Carrinho <span class="badge bg-dark text-white ms-1 rounded-0" id="total-itens-selecionados">0</span>
                 </button>
 
                 <div class="dropdown ms-3">
                     <button class="btn dropdown-toggle" type="button" id="dropdownConta" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i> <?= $usuario ? htmlspecialchars($usuario['nome']) : 'Conta' ?>
+                    <i class="bi bi-person-fill"></i> <?= $usuario ? htmlspecialchars($usuario['nome']) : 'Conta' ?>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownConta">
                         <?php if ($usuario): ?>

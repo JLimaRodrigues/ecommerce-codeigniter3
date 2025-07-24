@@ -1,146 +1,114 @@
 <script>
+document.addEventListener('DOMContentLoaded', async () => {
+  const itensPorPagina = 6;
+  let paginaAtual = 0;
+  let maximoPorPagina = 0;
+  let estaCarregando = false;
+  let produtos = [];
 
-  function fetchProducts(callback) {
-  $.ajax({
-    url: '<?= base_url('produto/listar') ?>',
-    method: 'GET',
-    success: function (data) {
-      products = data;
-      maxPage = Math.ceil(products.length / itemsPerPage) - 1;
-      callback();
-    },
-    error: function () {
-      alert("Erro ao carregar produtos");
-    }
-  });
-}
+  const listaDeProdutos = document.getElementById('lista-produtos');
+  if (!listaDeProdutos) return;
 
-  let products = [];
-  let maxPage = 0;
-  let cart = [];
-  let currentPage = 0;
-  const itemsPerPage = 6;
-  let isLoading = false;
+  Carrinho.carregar();
+  Carrinho.renderizarItensCarrinho();
 
-  function renderProducts(pageIndex) {
-    const start = pageIndex * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = products.slice(start, end);
+  try {
+    const response = await fetch('<?= base_url("produto/listar") ?>');
+    produtos = await response.json();
 
-    const html = currentItems.map(product => `
+    maximoPorPagina = Math.ceil(produtos.length / itensPorPagina) - 1;
+
+    renderizarProdutos(paginaAtual);
+    scrollPaginacao();
+  } catch (error) {
+    listaDeProdutos.innerHTML = `<p class="text-danger">Erro ao carregar produtos.</p>`;
+    console.error('Erro:', error);
+  }
+
+  function renderizarProdutos(paginaAtual) {
+    const inicio = paginaAtual * itensPorPagina;
+    const fim = inicio + itensPorPagina;
+    const itensAtuais = produtos.slice(inicio, fim);
+
+    let html = '';
+
+    itensAtuais.map(produto => {
+
+    const precoNumerico = parseFloat(produto.preco) || 0;
+    const precoOriginal = (precoNumerico * 1.10).toFixed(2);
+    const precoFormatado = precoNumerico.toFixed(2);
+    
+    html += `
       <div class="col mb-5">
         <div class="card h-100">
-          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="${product.name}" />
+          <img class="card-img-top" src="${produto.imagem || 'https://dummyimage.com/450x300/dee2e6/6c757d.jpg'}" alt="${produto.nome_produto}" />
           <div class="card-body p-4">
             <div class="text-center">
-              <h5 class="fw-bolder">${product.nome_produto}</h5>
-              ${product.preco}
+              <h5 class="fw-bolder">${produto.nome_produto}</h5>
+              <div class="text-success small">-10% <span class="text-muted text-decoration-line-through">R$ ${precoOriginal}</span></div>
+              R$ ${precoFormatado}
             </div>
           </div>
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div class="text-center">
-             <a class="btn btn-outline-dark mt-auto" href="#">Ver opções</a>
-             <button class="btn btn-sm btn-outline-dark w-100" onclick="addToCart('${product.nome_produto}', '${product.preco}')">Adicionar</button>
+              <button class="btn btn-outline-dark mt-auto adicionar-carrinho" data-produto='${JSON.stringify(produto)}'>
+                <i class="bi bi-cart-plus"></i> Adicionar ao Carrinho
+              </button>
             </div>
           </div>
         </div>
       </div>
-    `);
+    `
+  })
 
-    const $container = $('#product-list');
-    $container.fadeOut(200, function () {
-      $container.html(html.join(''));
-      $container.fadeIn(200);
+    listaDeProdutos.style.opacity = 0;
+    setTimeout(() => {
+      listaDeProdutos.innerHTML = html;
+      listaDeProdutos.style.opacity = 1;
+      adicionarListenersCarrinho();
+    }, 200);
+  }
+
+  function adicionarListenersCarrinho() {
+    document.querySelectorAll('.adicionar-carrinho').forEach(botao => {
+      botao.addEventListener('click', function () {
+        console.log('clicado');
+        const produto = JSON.parse(this.dataset.produto);
+        Carrinho.adicionar(produto);
+        Carrinho.renderizarItensCarrinho();
+      });
     });
   }
 
-  function saveCart() {
-    sessionStorage.setItem('cart', JSON.stringify(cart));
-  }
+  function scrollPaginacao() {
+    window.addEventListener('wheel', e => {
+      if (estaCarregando) return;
 
-  function loadCart() {
-    const stored = sessionStorage.getItem('cart');
-    cart = stored ? JSON.parse(stored) : [];
-    updateCart();
-  }
-
-  function addToCart(name, price) {
-    cart.push({ name, price });
-    updateCart();
-    saveCart();
-  }
-
-  function updateCart() {
-    $('#cart-count').text(cart.length);
-    $('#cart-items').html(cart.map((item, index) => `
-      <li class="list-group-item d-flex justify-content-between">
-        <span>${item.name}</span>
-        <span>${item.price}</span>
-        <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})">x</button>
-      </li>
-    `).join(''));
-
-    updateSubtotal();
-    saveCart();
-  }
-
-  function removeFromCart(index) {
-    cart.splice(index, 1);
-    updateCart();
-    saveCart();
-  }
-
-  function updateSubtotal() {
-    const subtotal = cart.reduce((total, item) => {
-      const priceNumber = parseFloat(item.price.replace(/[^\d.-]/g, ''));
-      return total + priceNumber;
-    }, 0);
-
-    $('#cart-subtotal').text(`Subtotal: R$ ${subtotal.toFixed(2)}`);
-  }
-
-  $(document).ready(function () {
-    loadCart();
-    renderProducts(currentPage);
-
-    fetchProducts(() => {
-    renderProducts(currentPage);
-
-    $(window).on('wheel', function (e) {
-      if (isLoading) return;
-      isLoading = true;
-
-      const delta = e.originalEvent.deltaY;
-
-      if (delta > 0 && currentPage < maxPage) {
-        currentPage++;
-        renderProducts(currentPage);
-      } else if (delta < 0 && currentPage > 0) {
-        currentPage--;
-        renderProducts(currentPage);
+      const delta = e.deltaY;
+      if (delta > 0 && paginaAtual < maximoPorPagina) {
+        paginaAtual++;
+        estaCarregando = true;
+        renderizarProdutos(paginaAtual);
+      } else if (delta < 0 && paginaAtual > 0) {
+        paginaAtual--;
+        estaCarregando = true;
+        renderizarProdutos(paginaAtual);
       }
 
       setTimeout(() => {
-        isLoading = false;
+        estaCarregando = false;
       }, 300);
     });
+  }
+
+  $('#checkout-btn').on('click', function () {
+      if (JSON.parse(localStorage.getItem('carrinho')).length === 0) return alert('Carrinho vazio');
+
+      <?php if (usuario_logado()): ?>
+        window.location.href = '<?= base_url("carrinho") ?>';
+      <?php else: ?>
+        window.location.href = '<?= base_url("login") ?>?redirect=carrinho';
+      <?php endif; ?>
   });
-
-    const minHeight = 1000;
-    const $main = $('main');
-    if ($main.height() < minHeight) {
-      $main.css('min-height', `${minHeight}px`);
-    }
-
-    $('#checkout-btn').on('click', function () {
-      if (cart.length === 0) return alert('Carrinho vazio');
-
-          <?php if (usuario_logado()): ?>
-            window.location.href = '<?= base_url("carrinho") ?>';
-          <?php else: ?>
-            window.location.href = '<?= base_url("login") ?>?redirect=carrinho';
-          <?php endif; ?>
-      });
-
-  });
+});
 </script>
