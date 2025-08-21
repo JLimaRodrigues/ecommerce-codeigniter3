@@ -22,7 +22,7 @@ const Carrinho = (() => {
   };
 
   const adicionar = (produto) => {
-    const existente = carrinho.find(item => item.nome_produto === produto.nome_produto);
+    const existente = carrinho.find(item => item.id_produto === produto.id_produto);
     if (existente) {
       existente.quantidade++;
     } else {
@@ -31,8 +31,11 @@ const Carrinho = (() => {
     salvar();
   };
 
-  const remover = (index) => {
-    carrinho.splice(index, 1);
+  const remover = (id_produto) => {
+    const indexParaRemover = carrinho.findIndex(item => item.id_produto === id_produto);
+    if (indexParaRemover > -1) {
+        carrinho.splice(indexParaRemover, 1);
+    }
     salvar();
   };
 
@@ -120,22 +123,22 @@ const Carrinho = (() => {
         const precoFormatado = precoNumerico.toFixed(2);
 
       html += `
-        <div class="list-group-item d-flex align-items-start">
-            <input class="form-check-input me-3 mt-2 item-checkbox" type="checkbox" checked data-index="${index}">
+        <div class="list-group-item d-flex align-items-start" id-produto="${item.id_produto}">
+            <input class="form-check-input me-3 mt-2 item-checkbox" type="checkbox" checked data-index="${item.id_produto}">
             <img src="https://dummyimage.com/80x80/dee2e6/6c757d" class="me-3" alt="Produto" style="width: 80px; height: 80px; object-fit: cover;">
             <div class="flex-grow-1">
-                <div class="fw-bold">${item.nome_produto}</div>
-                <a href="#" class="text-danger small btn-remover" data-index="${index}">Excluir</a>
+                <div class="fw-bold nome-produto">${item.nome_produto}</div>
+                <a href="#" class="text-danger small btn-remover" data-index="${item.id_produto}">Excluir</a>
                 <div class="mt-2 d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm btn-qtd" data-action="decrement" data-index="${index}">-</button>
+                    <button class="btn btn-outline-secondary btn-sm btn-qtd" data-action="decrement" data-index="${item.id_produto}">-</button>
                     <span class="mx-2 qtd-produto">${item.quantidade}</span>
-                    <button class="btn btn-outline-secondary btn-sm btn-qtd" data-action="increment" data-index="${index}">+</button>
+                    <button class="btn btn-outline-secondary btn-sm btn-qtd" data-action="increment" data-index="${item.id_produto}">+</button>
                     <span class="text-muted ms-3 small preco-unitario" data-preco-unitario="${precoNumerico}">+10 disponíveis</span>
                 </div>
             </div>
             <div class="text-end">
                 <div class="text-success small">-10% <span class="text-muted text-decoration-line-through">R$ ${precoOriginal}</span></div>
-                <div class="fw-bold fs-6">R$ ${precoFormatado}</div>
+                <div class="fw-bold fs-6 valor-produto">R$ ${precoFormatado}</div>
             </div>
         </div>
       `;

@@ -23,5 +23,8 @@ $route['admin/usuarios']   = 'admin/usuarios';
 $route['admin/relatorios'] = 'admin/relatorios';
 $route['admin/logs']       = 'admin/logs';
 
+//rotas de compra
+$route['continuar-compra']['POST'] = 'Pedido/continuar_compra';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

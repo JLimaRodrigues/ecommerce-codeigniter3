@@ -45,7 +45,7 @@
                     <strong>Total</strong>
                     <strong id="total-display" class="fs-5">R$ 0,00</strong>
                     </div>
-                    <button class="btn btn-primary w-100">Continuar a compra</button>
+                    <button id="continuar-compra" class="btn btn-primary w-100">Continuar a compra</button>
                 </div>
                 </div>
             </div>
