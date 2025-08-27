@@ -6,12 +6,14 @@ class Pedido extends CI_Controller {
     public function continuar_compra()
     {
         $data_json = $this->input->post('data');
+        $pedido    = json_decode($data_json, true);
 
-        $carrinho = json_decode($data_json, true);
-
-        echo "<pre>";
-        var_dump($carrinho);
-        echo "</pre>";
+        $this->load->model('PedidoModel');
+        $id_pedido = $this->PedidoModel->criar([
+            'id_usuario'  => $pedido['id_usuario'],
+            'valor_total' => $pedido['valor_total'],
+            'status'      => $pedido['status']
+        ], $pedido['produtos']);
 
         redirect('confirmar-compra'); 
     }

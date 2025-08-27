@@ -114,6 +114,11 @@ class Usuario extends CI_Controller {
             $redirect_to = $this->session->userdata('redirect_after_login');
 
             $this->session->unset_userdata('redirect_after_login');
+
+            $idEncriptadoCarrinho = $this->session->userdata('id_carrinho');
+            $id_carrinho = decriptar($idEncriptadoCarrinho);
+            $this->load->model('CarrinhoModel');
+            $this->CarrinhoModel->registrarCarrinhoUsuario($usuario->id_usuario, $id_carrinho);
             
             if ($redirect_to) {
                 redirect($redirect_to);

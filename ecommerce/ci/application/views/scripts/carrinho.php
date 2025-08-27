@@ -51,18 +51,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const continuarCompra = document.getElementById('continuar-compra');
         continuarCompra.addEventListener('click', () => {
-            console.log('estou aqui');
 
             const carrinho = Carrinho.retornarCarrinho();
 
+            const pedido = {
+                id_usuario: <?= $this->session->userdata('usuario_logado')['id'] ?> || null,
+                status: 'pendente',
+                produtos: carrinho
+            };
+
+            pedido.valor_total = pedido.produtos.reduce((sum, p) => sum + (p.preco * p.quantidade), 0);
+
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = 'http://localhost:8080/ecommerce/continuar-compra';
+            form.action = '<?= base_url("continuar-compra") ?>';
 
             const input = document.createElement('input');
             input.type = 'hidden';
             input.name = 'data';
-            input.value = JSON.stringify(carrinho);
+            input.value = JSON.stringify(pedido);
 
             form.appendChild(input);
             document.body.appendChild(form);

@@ -23,6 +23,9 @@ $route['admin/usuarios']   = 'admin/usuarios';
 $route['admin/relatorios'] = 'admin/relatorios';
 $route['admin/logs']       = 'admin/logs';
 
+//rotas de carrinho
+$route['carrinho/salvar_carrinho'] = 'Carrinho/salvar_carrinho';
+
 //rotas de compra
 $route['continuar-compra']['POST'] = 'Pedido/continuar_compra';
 

@@ -101,12 +101,47 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  $('#checkout-btn').on('click', function () {
-      if (JSON.parse(localStorage.getItem('carrinho')).length === 0) return alert('Carrinho vazio');
+  const registrarCarrinho = async () => {
+    const carrinhoLocal = Carrinho.retornarCarrinho();
 
+    if (carrinhoLocal.length === 0) {
+      alert('Carrinho vazio');
+      return null;
+    }
+
+    const carrinho = {
+      id_usuario: <?= $this->session->userdata('usuario_logado')['id'] ?? 'null' ?>,
+      produtos: carrinhoLocal
+    };
+
+    try {
+      const response = await fetch('<?= base_url("carrinho/salvar_carrinho") ?>', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(carrinho)
+      });
+
+      const result = await response.json();
+      return result;
+    } catch (e) {
+      console.error("Erro ao salvar carrinho:", e);
+      return null;
+    }
+  };
+
+  $('#checkout-btn').on('click', async function () {
+      const result = await registrarCarrinho();
       <?php if (usuario_logado()): ?>
-        window.location.href = '<?= base_url("carrinho") ?>';
+        if (result && result.status === 200) {
+           localStorage.removeItem('carrinho');
+           window.location.href = '<?= base_url("carrinho") ?>';
+         } else {
+          alert("Erro ao salvar o carrinho.");
+        }
       <?php else: ?>
+        //console.log(result)
         window.location.href = '<?= base_url("login") ?>?redirect=carrinho';
       <?php endif; ?>
   });
