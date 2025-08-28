@@ -24,12 +24,12 @@ $route['admin/relatorios'] = 'admin/relatorios';
 $route['admin/logs']       = 'admin/logs';
 
 //rotas de carrinho
-$route['carrinho/salvar_carrinho'] = 'Carrinho/salvar_carrinho';
+$route['carrinho/salvar_carrinho'] = 'carrinho/salvar_carrinho';
 
 //rotas de compra
-$route['pedido/cadastrar_pedido']['POST'] = 'Pedido/cadastrar_pedido';
-$route['pedido/continuar_compra']         = 'Pedido/continuar_compra';
-$route['pedido/selecionar_ponto_entrega'] = 'Pedido/selecionar_ponto_entrega';
+$route['pedido/cadastrar_pedido']['POST'] = 'pedido/cadastrar_pedido';
+$route['pedido/continuar_compra']         = 'pedido/continuar_compra';
+$route['pedido/selecionar_ponto_entrega'] = 'pedido/selecionar_ponto_entrega';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
