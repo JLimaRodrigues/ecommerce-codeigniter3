@@ -14,7 +14,10 @@ function checar_permissao() {
         'usuario/salvar',
         'usuario/autenticar',
         'produto/listar',
-        'carrinho/salvar_carrinho'
+        'carrinho/salvar_carrinho',
+        'pedido/cadastrar_pedido',
+        'pedido/continuar_compra',
+        'pedido/selecionar_ponto_entrega'
     ];
 
     if (in_array($rota_atual, $rotas_livres)) {

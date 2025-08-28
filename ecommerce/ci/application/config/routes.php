@@ -27,7 +27,9 @@ $route['admin/logs']       = 'admin/logs';
 $route['carrinho/salvar_carrinho'] = 'Carrinho/salvar_carrinho';
 
 //rotas de compra
-$route['continuar-compra']['POST'] = 'Pedido/continuar_compra';
+$route['pedido/cadastrar_pedido']['POST'] = 'Pedido/cadastrar_pedido';
+$route['pedido/continuar_compra']         = 'Pedido/continuar_compra';
+$route['pedido/selecionar_ponto_entrega'] = 'Pedido/selecionar_ponto_entrega';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

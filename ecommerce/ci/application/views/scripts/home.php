@@ -135,7 +135,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       const result = await registrarCarrinho();
       <?php if (usuario_logado()): ?>
         if (result && result.status === 200) {
-           localStorage.removeItem('carrinho');
            window.location.href = '<?= base_url("carrinho") ?>';
          } else {
           alert("Erro ao salvar o carrinho.");

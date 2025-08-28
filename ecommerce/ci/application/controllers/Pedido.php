@@ -5,6 +5,11 @@ class Pedido extends CI_Controller {
 
     public function continuar_compra()
     {
+        $this->load->view('pedido/continuar-compra');
+    }
+
+    public function cadastrar_pedido()
+    {
         $data_json = $this->input->post('data');
         $pedido    = json_decode($data_json, true);
 
@@ -15,6 +20,11 @@ class Pedido extends CI_Controller {
             'status'      => $pedido['status']
         ], $pedido['produtos']);
 
-        redirect('confirmar-compra'); 
+        redirect('pedido/continuar_compra');
+    }
+
+    public function selecionar_ponto_entrega()
+    {
+        $this->load->view('pedido/selecionar-ponto-de-entrega');
     }
 }

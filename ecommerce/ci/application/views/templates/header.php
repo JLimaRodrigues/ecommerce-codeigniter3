@@ -5,6 +5,7 @@
   <title>E-commerce</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <style>
     .card, .btn, .dropdown-menu, .navbar, .form-control {
       border-radius: 0 !important;
@@ -22,6 +23,10 @@
     .fade-in {
       opacity: 1;
       transition: opacity 0.2s ease-in;
+    }
+    #map {
+      width: 100%;
+      height: 600px;
     }
   </style>
 </head>

@@ -1,0 +1,18 @@
+[
+  {
+    "nome": "LOJA DE MODAS E ACESSÓRIOS",
+    "tipo": "Agência Nosso Ecommerce",
+    "endereco": "RUA NOSSA SENHORA DAS GRAÇAS 213, Paraíso (27536185)",
+    "coords": [-22.4685, -44.4467],
+    "horarios": "Segunda à Sábado das 9 às 18:30 hrs",
+    "preco": 11.99
+  },
+  {
+    "nome": "RESOLVE CELULAR",
+    "tipo": "Agência Nosso Ecommerce",
+    "endereco": "AVENIDA NOVA RESENDE 58, RESENDE (27542130)",
+    "coords": [-22.4710, -44.4505],
+    "horarios": "Segunda à sexta 9:30 às 18:30 - Sábado 9:30 às 13:30",
+    "preco": 11.99
+  }
+]

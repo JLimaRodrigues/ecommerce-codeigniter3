@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '<?= base_url("continuar-compra") ?>';
+            form.action = '<?= base_url("pedido/cadastrar_pedido") ?>';
 
             const input = document.createElement('input');
             input.type = 'hidden';
